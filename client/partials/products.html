@@ -1,0 +1,64 @@
+<div ng-controller = 'ProductsController'>
+    <div class="rows">
+        <div class="col-md-2">
+            <br>
+            <input type="text" ng-model="filter_name" placeholder="Filter">
+
+            <h4><br>Add a new Product</h4>
+            <form name="AddProductForm" noValidate>
+
+                <div class="form-group">
+                    <label for="name">Name: </label>
+                    <input type="text" name="name" id="name" ng-model="new_product.name" placeholder="Name" class="form-control" ng-minlength="2" required>
+                </div>
+                <div ng-messages="AddProductForm.name.$error" class="error" ng-if="submitted" role="alert">
+                    <div ng-message="required">Please enter product name.</div>
+                    <div ng-message="minlength">Product name should be at least 2 characters</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Image Url: </label>
+                    <input type="text" name="image_url" id="image" ng-model="new_product.image_url" placeholder="http://" class="form-control" required>
+                </div>
+                <div ng-messages="AddProductForm.image_url.$error" class="error" ng-if="submitted" role="alert">
+                    <div ng-message="required">Please enter Image URL.</div>
+                    <!-- Validating URL does not work because some images have data:// instead of http://, therefore saved as text type instead of url type -->
+                    <!-- <div ng-message="url">Please enter a valid URL.</div> -->
+                </div>
+
+                <div class="form-group">
+                    <label for "description">Description</label>
+                    <textarea id="description" ng-model="new_product.description" placeholder="Description" class="form-control"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">Initial Quanity: </label>
+                    <input type="number" name="quantity" id="quantity" ng-model="new_product.quantity" placeholder="Quantity" class="form-control" required>
+                </div>
+                <div ng-messages="AddProductForm.quantity.$error" class="error" ng-if="submitted" role="alert">
+                    <div ng-message="required">Please enter initial quantity.</div>
+                    <div ng-message="number">Quantity must be a number.</div>
+                </div>
+
+                <input type="submit" value="Add Product" class="btn btn-primary"ng-click="addproduct()">
+
+                
+            </form>
+        </div>
+
+        <div class="col-md-10">
+            <div class="rows">
+                <div ng-repeat="product in products | filter: filter_name" class="col-md-2 box">
+                    <img ng-src="{{product.image_url}}">
+                    <p>{{product.name}}</p>
+                    <p>({{product.quantity}} left)</p>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

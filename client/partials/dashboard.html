@@ -1,0 +1,51 @@
+<div ng-controller = 'DashboardController'>
+    <div class="rows">
+
+        <div class="col-md-2">
+
+            <br>
+            <input type="text" ng-model="filter_name" placeholder="Filter">
+
+        </div>
+
+        <div class="col-md-10">
+            <!-- Recent Products -->
+            <div ng-repeat="product in recentproducts | filter: filter_name" class="col-md-2 box">
+                <img ng-src="{{product.image_url}}">
+                <p>{{product.name}}</p>
+                <p>({{product.quantity}} left)</p>
+
+            </div>
+            <div class="col-md-12">
+                <p class="text-center"><a href="#/products">Show More Products</a></p>
+            </div>
+
+
+            <!-- Recent Orders -->
+            <div class="col-md-12">
+                <h5>Recent Orders</h5>
+                <ul>
+                    <li ng-repeat="order in recentorders | filter: filter_name">{{order.customer.name}} purchased {{order.quantity}} {{order.product.name}} (<span am-time-ago="order.created_at"></span>)</li>
+                </ul>
+            </div>
+            <div class="col-md-12">
+                <p class="text-center"><a class="text-center" href="#/orders">Show More Orders</a></p>
+            </div>
+            
+
+            <!-- Recent Customers -->
+            <div class="col-md-12">
+                <h5>New Customers</h5>
+                <ul>
+                    <li ng-repeat="customer in recentcustomers | filter: filter_name">{{customer.name}} joined the store. (<span am-time-ago="customer.created_at"></span>)</li>
+                </ul>
+            </div>
+            <div class="col-md-12">
+                <p class="text-center"><a class="text-center" href="#/orders">Show More Customers</a></p>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
