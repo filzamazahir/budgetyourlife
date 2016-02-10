@@ -8,7 +8,7 @@ Budget Your Life is a simply budgeting webapp built in MEAN. Users create a pers
 git clone https://github.com/filzamazahir/budgetyourlife.git
 ```
 
-2) Make sure to have mongodb installed. Start the mongod server
+2) Make sure to have mongodb and node installed. Start the mongod server
 ```
 sudo mongod
 ```
