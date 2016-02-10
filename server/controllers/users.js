@@ -35,7 +35,7 @@ module.exports = {
                 if (err) {
                     return res.status(500).json({err: 'Could not log in user'});
                 }
-                return res.status(200).json({status: 'Login successful!', user: user});
+                res.status(200).json({status: 'Login successful!', user: user});
             });
         })(req, res, next);
     },
@@ -44,7 +44,6 @@ module.exports = {
         req.logout();
         res.status(200).json({status: 'Bye!'});
     },
-
 
     showall: function(req, res){
         Customer.find({}, function (err, customers){

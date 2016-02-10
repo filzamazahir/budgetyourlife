@@ -161,46 +161,64 @@ budgeting_app.controller('UsersController', function($scope, UserFactory) {
 
 
 budgeting_app.controller('loginController', function ($scope, $location, AuthServiceFactory) {
+    $scope.login_form = true;
+    $scope.logout_button = false;
 
     console.log(AuthServiceFactory.getUserStatus());
 
     $scope.login = function () {
-
-      // initial values
-      $scope.error = false;
-      $scope.disabled = true;
-
-      // call login from service
-      AuthServiceFactory.login($scope.loginForm)
+        console.log('LoginController - scope.login');
+        // initial values
+        $scope.error = false;
+        $scope.disabled = true;
+        // call login from service
+        AuthServiceFactory.login($scope.loginForm)
         .then(function () {  // handle success
-            console.log('login status: ',AuthServiceFactory.getUserStatus());
-          $location.path('/');
-          $scope.disabled = false;
-          $scope.loginForm = {};
+            console.log('Login Controller - login status: ', AuthServiceFactory.getUserStatus());
+            $scope.login_form = false;
+            $scope.logout_button = true;
+            $location.path('/');
+            $scope.disabled = false;
+            $scope.loginForm = {};
         })
         .catch(function () {  // handle error
-          $scope.error = true;
-          $scope.errorMessage = "Invalid username and/or password";
-          $scope.disabled = false;
-          $scope.loginForm = {};
+            $scope.error = true;
+            $scope.errorMessage = "Invalid username and/or password";
+            $scope.disabled = false;
+            $scope.loginForm = {};
         });
 
     };
 
-});
-
-budgeting_app.controller('logoutController', function ($scope, $location, AuthServiceFactory) {
-
     $scope.logout = function () {
-        console.log(AuthServiceFactory.getUserStatus());
+        console.log('Login Controller. logout', AuthServiceFactory.getUserStatus());
         // call logout from service
         AuthServiceFactory.logout()
             .then(function () {
-              $location.path('/login');
+                $location.path('/index');
+                $scope.login_form = true;
+                $scope.logout_button = false;
+                console.log('Login Controller. logout successful');
+        
         });
     };
 
+
+
 });
+
+// budgeting_app.controller('logoutController', function ($scope, $location, AuthServiceFactory) {
+
+//     $scope.logout = function () {
+//         console.log(AuthServiceFactory.getUserStatus());
+//         // call logout from service
+//         AuthServiceFactory.logout()
+//             .then(function () {
+//               $location.path('/login');
+//         });
+//     };
+
+// });
 
 budgeting_app.controller('registerController', function ($scope, $location, AuthServiceFactory) {
 
@@ -214,14 +232,12 @@ budgeting_app.controller('registerController', function ($scope, $location, Auth
 
       // call register from service
       AuthServiceFactory.register($scope.new_user)
-        // handle success
-        .then(function () {
-          $location.path('/login');
+        .then(function () { // handle success
+          $location.path('/');
           $scope.disabled = false;
           $scope.registerForm = {};
         })
-        // handle error
-        .catch(function () {
+        .catch(function () {  // handle error
           $scope.error = true;
           $scope.errorMessage = "Something went wrong!";
           $scope.disabled = false;

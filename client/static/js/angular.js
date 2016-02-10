@@ -10,10 +10,10 @@ budgeting_app.config(function ($routeProvider) {
       controller: 'HomeController',
       access: {restricted: true}
     })
-    .when('/login', {
+    .when('/index', {
       // console.log('routeProvider - trying to go to /login');
-      templateUrl: 'partials/login.html', 
-      controller: 'loginController',
+      templateUrl: 'partials/indexpage.html', 
+      controller: 'registerController',
       access: {restricted: false}
     })
     .when('/logout', {
@@ -21,12 +21,12 @@ budgeting_app.config(function ($routeProvider) {
       controller: 'logoutController',
       access: {restricted: true}
     })
-    .when('/register', {
-       // console.log('routeProvider - trying to go to /register');
-      templateUrl: 'partials/register.html', 
-      controller: 'registerController',
-      access: {restricted: false}
-    })
+    // .when('/register', {
+    //    // console.log('routeProvider - trying to go to /register');
+    //   templateUrl: 'partials/register.html', 
+    //   controller: 'registerController',
+    //   access: {restricted: false}
+    // })
     .when('/one', {
       template: '<h1>This is page one!</h1>',
       access: {restricted: true}
@@ -44,7 +44,7 @@ budgeting_app.config(function ($routeProvider) {
 budgeting_app.run(function ($rootScope, $location, $route, AuthServiceFactory) {
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
     if (next.access.restricted && AuthServiceFactory.isLoggedIn() === false) {
-      $location.path('/login');
+      $location.path('/index');
       $route.reload();
     }
   });

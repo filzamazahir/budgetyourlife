@@ -5,7 +5,7 @@ var users = require('../controllers/users.js');
 module.exports = function(app){
     app.post('/users/register', users.register);
     app.post('/users/login', users.login);
-    app.get('/logout', users.logout);
+    app.get('/users/logout', users.logout);
 
     // app.get('/orders', orders.showall);
     // app.post('/orders/new', orders.create);
