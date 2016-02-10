@@ -1,5 +1,5 @@
 //Dashboard Controller
-store_app.controller('DashboardController', function($scope, ProductFactory, OrderFactory, CustomerFactory){
+budgeting_app.controller('DashboardController', function($scope, ProductFactory, OrderFactory, CustomerFactory){
     
     $scope.getrecentproducts = function(){
         ProductFactory.getRecentProducts(function(data){
@@ -24,7 +24,7 @@ store_app.controller('DashboardController', function($scope, ProductFactory, Ord
 });
 
 //Products Controller
-store_app.controller('ProductsController', function($scope, ProductFactory){
+budgeting_app.controller('ProductsController', function($scope, ProductFactory){
     $scope.getproducts = function() {
         ProductFactory.getProducts(function(data){
             $scope.products = data;  
@@ -53,7 +53,7 @@ store_app.controller('ProductsController', function($scope, ProductFactory){
 
 
 //Orders Controller
-store_app.controller('OrdersController', function($scope, OrderFactory, ProductFactory, CustomerFactory){
+budgeting_app.controller('OrdersController', function($scope, OrderFactory, ProductFactory, CustomerFactory){
 
     $scope.getorders = function() {
         OrderFactory.getOrders(function(data){
@@ -117,43 +117,123 @@ store_app.controller('OrdersController', function($scope, OrderFactory, ProductF
     $scope.getcustomers();
 });
 
-//Customer Controller
-store_app.controller('CustomersController', function($scope, CustomerFactory) {
+//Users Controller
+budgeting_app.controller('UsersController', function($scope, UserFactory) {
 
-    $scope.getcustomers = function() {
-        CustomerFactory.getCustomers(function(data){
+    $scope.getusers = function() {
+        UserFactory.getCustomers(function(data){
             $scope.customers = data;  
         });
     }
     
-    $scope.addcustomer = function() {
+    $scope.adduser = function() {
         $scope.submitted = true;
-        if (!$scope.new_customer || !$scope.new_customer.name) {
+        if (!$scope.new_user || !$scope.new_user.name) {
             return;
         }
 
-        CustomerFactory.findCustomerByName($scope.new_customer.name, function(result){
+        UserFactory.findUserByUserame($scope.new_user.username, function(result){
             if (result) {
-                $scope.customer_name_error = "This customer already exists in the database";
+                $scope.user_name_error = "This customer already exists in the database";
+                console.log('username already exists')
             }
             else {
-                CustomerFactory.addCustomer($scope.new_customer, function(){
+                UserFactory.addUser($scope.new_user, function(){
                     $scope.getcustomers();
-                    $scope.new_customer = {};
-                    $scope.customer_name_error = '';
+                    $scope.new_user = {};
+                    $scope.user_name_error = '';
                     $scope.submitted = false;
                 });
             }
         });
         
     }
-    $scope.deletecustomer = function(id) {
-        CustomerFactory.deleteCustomer(id, $scope.getcustomers);  
-    }
+    // $scope.deletecustomer = function(id) {
+    //     UserFactory.deleteCustomer(id, $scope.getcustomers);  
+    // }
 
     //Functions to run by default
     $scope.submitted = false;
     $scope.customer_name_error = '';
-    $scope.getcustomers();
+    // $scope.getcustomers();
 
 });
+
+
+budgeting_app.controller('loginController', function ($scope, $location, AuthServiceFactory) {
+
+    console.log(AuthServiceFactory.getUserStatus());
+
+    $scope.login = function () {
+
+      // initial values
+      $scope.error = false;
+      $scope.disabled = true;
+
+      // call login from service
+      AuthServiceFactory.login($scope.loginForm)
+        .then(function () {  // handle success
+            console.log('login status: ',AuthServiceFactory.getUserStatus());
+          $location.path('/');
+          $scope.disabled = false;
+          $scope.loginForm = {};
+        })
+        .catch(function () {  // handle error
+          $scope.error = true;
+          $scope.errorMessage = "Invalid username and/or password";
+          $scope.disabled = false;
+          $scope.loginForm = {};
+        });
+
+    };
+
+});
+
+budgeting_app.controller('logoutController', function ($scope, $location, AuthServiceFactory) {
+
+    $scope.logout = function () {
+        console.log(AuthServiceFactory.getUserStatus());
+        // call logout from service
+        AuthServiceFactory.logout()
+            .then(function () {
+              $location.path('/login');
+        });
+    };
+
+});
+
+budgeting_app.controller('registerController', function ($scope, $location, AuthServiceFactory) {
+
+    console.log(AuthServiceFactory.getUserStatus());
+
+    $scope.register = function () {
+
+      // initial values
+      $scope.error = false;
+      $scope.disabled = true;
+
+      // call register from service
+      AuthServiceFactory.register($scope.new_user)
+        // handle success
+        .then(function () {
+          $location.path('/login');
+          $scope.disabled = false;
+          $scope.registerForm = {};
+        })
+        // handle error
+        .catch(function () {
+          $scope.error = true;
+          $scope.errorMessage = "Something went wrong!";
+          $scope.disabled = false;
+          $scope.registerForm = {};
+        });
+
+    };
+
+});
+
+
+
+
+
+

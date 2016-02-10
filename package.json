@@ -2,11 +2,13 @@
   "name": "Full-Mean",
   "description": "Dependencies for a full mean stack application",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",
     "express": "~4.10.0",
     "express-session": "^1.12.1",
     "mongoose": "^4.0.1",
     "passport": "^0.3.2",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^1.0.0"
   }
 }

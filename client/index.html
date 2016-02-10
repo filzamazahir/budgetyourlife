@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html ng-app='store_app'>
+<html ng-app='budgeting_app'>
     <head>
-        <title>Orders and Customers App</title>
+        <title>Budget Your Life</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="static/css/styles.css">
         
@@ -16,21 +16,21 @@
         
 
 
-        <script type="text/javascript" src="static/js/angular.js"></script>
+        
+        <script type="text/javascript" src="static/js/angular.js"></script> 
+        <script type="text/javascript" src="static/js/authservicefactory.js"></script>
         <script type="text/javascript" src="static/js/factory.js"></script>
         <script type="text/javascript" src="static/js/controller.js"></script>
+        
 
     </head>
     <body>
         <div class="container">
-            <h1>Customers and Orders</h1>
+            <h1>Budget Your Life!</h1>
+            <a href='#one'>One</a> | <a href='#two'>Two</a> 
 
-            <a href='#dashboard'>Dashboard</a> | <a href='#/products'>Products</a> | <a href='#/orders'>Orders</a> | <a href='#/customers'>Customers</a> 
-
-
-            <div ng-view=""></div>
-
-
+            <div ng-view=""></div>   
+        
         </div>
     </body>
 </html>

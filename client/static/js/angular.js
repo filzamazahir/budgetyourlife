@@ -1,25 +1,55 @@
 //Declare Module
-var store_app = angular.module('store_app', ['ngRoute', 'ngMessages', 'angularMoment']);
+var budgeting_app = angular.module('budgeting_app', ['ngRoute', 'ngMessages', 'angularMoment']);
 
 //Declare Routes
-store_app.config(function ($routeProvider) {  
+budgeting_app.config(function ($routeProvider) {  
   $routeProvider
     .when('/', {
-        templateUrl: 'partials/dashboard.html'
+      // console.log('routeProvider - trying to go to /');
+      templateUrl: 'partials/home.html',
+      controller: 'HomeController',
+      access: {restricted: true}
     })
-    .when('/dashboard', {
-        templateUrl: 'partials/dashboard.html'
+    .when('/login', {
+      // console.log('routeProvider - trying to go to /login');
+      templateUrl: 'partials/login.html', 
+      controller: 'loginController',
+      access: {restricted: false}
     })
-    .when('/products', {
-      templateUrl: 'partials/products.html'
+    .when('/logout', {
+       // console.log('routeProvider - trying to go to /logout');
+      controller: 'logoutController',
+      access: {restricted: true}
     })
-    .when('/orders', {
-        templateUrl: 'partials/orders.html'
+    .when('/register', {
+       // console.log('routeProvider - trying to go to /register');
+      templateUrl: 'partials/register.html', 
+      controller: 'registerController',
+      access: {restricted: false}
     })
-    .when('/customers', {
-      templateUrl: 'partials/customers.html'
+    .when('/one', {
+      template: '<h1>This is page one!</h1>',
+      access: {restricted: true}
+    })
+    .when('/two', {
+      template: '<h1>This is page two!</h1>',
+      access: {restricted: true}
     })
     .otherwise({
       redirectTo: '/'
     });
 });
+
+//Ensures user is logged in before any page with a restriction is served
+budgeting_app.run(function ($rootScope, $location, $route, AuthServiceFactory) {
+  $rootScope.$on('$routeChangeStart', function (event, next, current) {
+    if (next.access.restricted && AuthServiceFactory.isLoggedIn() === false) {
+      $location.path('/login');
+      $route.reload();
+    }
+  });
+});
+
+
+
+

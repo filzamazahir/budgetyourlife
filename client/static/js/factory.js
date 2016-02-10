@@ -1,5 +1,5 @@
 //Product Factory
-store_app.factory('ProductFactory', function($http){
+budgeting_app.factory('ProductFactory', function($http){
     var factory = {};
     var products = [];
 
@@ -32,7 +32,7 @@ store_app.factory('ProductFactory', function($http){
 });
 
 //Order Factory
-store_app.factory('OrderFactory', function($http){
+budgeting_app.factory('OrderFactory', function($http){
     var factory = {};
 
     factory.getOrders = function(callback) {
@@ -62,42 +62,43 @@ store_app.factory('OrderFactory', function($http){
 
 
 
-//Customer Factory
-store_app.factory('CustomerFactory', function($http) {
+//User Factory
+budgeting_app.factory('UserFactory', function($http) {
     var factory = {};
-    var customers = [];
+    var users = [];
 
     //returned the entire list here
-    factory.getCustomers = function(callback) {
-        $http.get('/customers').success(function(output){
-            customers = output;
-            callback(customers);
+    factory.getUsers = function(callback) {
+        $http.get('/users').success(function(output){
+            users = output;
+            callback(users);
         }); 
     }
 
-    factory.findCustomerByName = function(name, callback) {
-        $http.get('/customers/findonebyname/'+name).success(function(output){
+    factory.findUserByUsername = function(username, callback) {
+        $http.get('/users/findonebyname/'+username).success(function(output){
             callback(output);
         }); 
     }
 
-    factory.addCustomer = function(newdata, callback) {
-        $http.post('/customers/new', newdata).success(function(output){
+    factory.addUser = function(newdata, callback) {
+        $http.post('/users/new', newdata).success(function(output){
+            console.log('user being added here')
             callback();
         });
     }
 
-    factory.deleteCustomer = function(id, callback) {
-        $http.delete('/customers/remove/'+id).success(function(output){
+    factory.deleteUser = function(id, callback) {
+        $http.delete('/users/remove/'+id).success(function(output){
             callback();
         });
     }
 
-    factory.getRecentCustomers = function (callback) {
-        $http.get('/customers/recent').success(function(output){
-            callback(output);
-        })
-    }
+    // factory.getRecentCustomers = function (callback) {
+    //     $http.get('/customers/recent').success(function(output){
+    //         callback(output);
+    //     })
+    // }
 
     return factory;
 });

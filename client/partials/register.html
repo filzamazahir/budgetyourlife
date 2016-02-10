@@ -1,0 +1,90 @@
+<div class="row">
+<div class="col-md-4 col-md-offset-4">
+    <h3  class="text-center">Register</h3>
+
+    <form action="/users/register" method='POST'>
+
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+          
+                <input type="text" name="firstName" id="firstName" placeholder = "First Name" ng-model="new_user.firstName" class="form-control">
+          
+        </div>
+<!--                         {%with errors = get_flashed_messages(category_filter=["name"]) %}
+        {% if errors %}
+            {% for error in errors %}
+                <p class="error">{{error}}</p>
+            {%endfor%}
+        {%endif%}
+        {%endwith%} -->
+
+        <div class="form-group">
+            <label for="lastName" >Last Name:</label>
+            
+                <input type="text" name="lastName" id="lastName" placeholder = "Last Name" ng-model="new_user.lastName" class="form-control">
+            
+        </div>
+<!--                         {%with errors = get_flashed_messages(category_filter=["alias"]) %}
+        {% if errors %}
+            {% for error in errors %}
+                <p class="error">{{error}}</p>
+            {%endfor%}
+        {%endif%}
+        {%endwith%} -->
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            
+                <input type="text" name="email" id="email" placeholder = "Email" ng-model="new_user.email" class="form-control">
+            
+        </div>
+
+        <div class="form-group">
+            <label for="username">Username:</label>
+            
+                <input type="text" name="username" id="username" placeholder = "Username" ng-model="new_user.username" class="form-control">
+            
+        </div>
+<!--                         {%with errors = get_flashed_messages(category_filter=["email_register"]) %}
+        {% if errors %}
+            {% for error in errors %}
+                <p class="error">{{error}}</p>
+            {%endfor%}
+        {%endif%}
+        {%endwith%} -->
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            
+                <input type="password" name="password" id="password" placeholder = "Password"ng-model="new_user.password"  class="form-control">
+           
+        </div>
+
+        <div class="form-group">
+            <label for="conf_password" >Confirm Password:</label>
+          
+                <input type="password" name="conf_password" id="conf_password" placeholder = "Confirm Password" ng-model="new_user.conf_password" class="form-control">
+          
+        </div>
+<!--                         {%with errors = get_flashed_messages(category_filter=["password_register"]) %}
+        {% if errors %}
+            {% for error in errors %}
+                <p class="error">{{error}}</p>
+            {%endfor%}
+        {%endif%}
+        {%endwith%} -->
+
+        <button type="submit" class="btn btn-default pull-right" ng-click="adduser()" >Register</button>
+        <a id="login" href="#login">Already Registered? Login here!</a>
+    </form>
+
+<!--                     {%with errors = get_flashed_messages(category_filter=["register"]) %}
+    {% if errors %}
+        {% for error in errors %}
+            <p class="error bottomerror">{{error}}</p>
+        {%endfor%}
+    {%endif%}
+    {%endwith%} -->
+
+</div>
+</div>

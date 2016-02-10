@@ -3,7 +3,7 @@ var path = require('path');
 var fs = require('fs');
 
 //Connect to this database
-mongoose.connect('mongodb://localhost/store_db');
+mongoose.connect('mongodb://localhost/budgetyourlife_db');
 
 //Reads all the models from the models folder - as if all stuff is here, and runs require for each file
 var models_path = path.join(__dirname, './../models');
