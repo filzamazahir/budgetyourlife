@@ -6,7 +6,6 @@ var User = mongoose.model ('User');
 module.exports = {
 
     register: function(req, res) {
-        console.log('password in backend', req.body.password);
         User.register(new User({
             firstname: req.body.firstname, 
             lastname: req.body.lastname, 
@@ -14,11 +13,16 @@ module.exports = {
             username: req.body.username, 
             created_at: new Date()
         }), req.body.password, function (err, user) {
-            if (err) {
-                return res.status(500).json({err: err});
-            }
-            passport.authenticate('local')(req, res, function () {
-                return res.status(200).json({status: 'Registration successful!'});
+                if (err) {
+                    return res.status(500).json({err: err});
+                }
+                passport.authenticate('local')(req, res, function () {
+                    req.logIn(user, function(err) {
+                    if (err) {
+                        return res.status(500).json({err: 'Could not log in user after registering'});
+                    }
+                    return res.status(200).json({status: 'Registration successful!', user: user});
+                });
             });
         });
     },

@@ -233,15 +233,17 @@ budgeting_app.controller('registerController', function ($scope, $location, Auth
       // call register from service
       AuthServiceFactory.register($scope.new_user)
         .then(function () { // handle success
-          $location.path('/');
-          $scope.disabled = false;
-          $scope.registerForm = {};
+            console.log('RegistrationController - success');
+            $location.path('/');
+            $scope.disabled = false;
+            $scope.registerForm = {};
         })
         .catch(function () {  // handle error
-          $scope.error = true;
-          $scope.errorMessage = "Something went wrong!";
-          $scope.disabled = false;
-          $scope.registerForm = {};
+            console.log('RegistrationController - error');
+            $scope.error = true;
+            $scope.errorMessage = "Something went wrong!";
+            $scope.disabled = false;
+            $scope.registerForm = {};
         });
 
     };

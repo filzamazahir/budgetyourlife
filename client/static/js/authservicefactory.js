@@ -77,7 +77,6 @@ budgeting_app.factory('AuthServiceFactory', function ($q, $timeout, $http) {
     var deferred = $q.defer();
 
     // send a post request to the server
-    console.log('password: ', new_user.password);
     $http.post('/users/register', {
       firstname: new_user.firstName, 
       lastname: new_user.firstName,
