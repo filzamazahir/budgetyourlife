@@ -1,27 +1,27 @@
 var mongoose = require('mongoose');
-var Product = mongoose.model ('Product');  
+var SavingGoal = mongoose.model ('SavingGoal');  
 
 module.exports = {
 
     showall: function(req, res){
-        Product.find({}, function (err, products){
+        SavingGoal.find({}, function (err, savinggoals){
             if (err) {
                 console.log ("Error: Could not retrieve data");
             }
             else {
-                res.json(products);
+                res.json(savinggoals);
             }
         });
     },
 
     create: function(req, res){
-        var product = new Product({name: req.body.name, image_url: req.body.image_url, description: req.body.description, quantity: req.body.quantity, created_at: new Date()});
-        product.save(function(err, data_added){
+        var savinggoal = new SavingGoal({name: req.body.name, image_url: req.body.image_url, description: req.body.description, quantity: req.body.quantity, created_at: new Date()});
+        savinggoal.save(function(err, data_added){
             if(err){
-                console.log ("Error: Could not add product");
+                console.log ("Error: Could not add savinggoal");
             }
             else {
-                console.log ("Product added successfully!"); 
+                console.log ("Saving Goal added successfully!"); 
                 res.json(data_added);
             }
             
@@ -29,23 +29,23 @@ module.exports = {
     },
 
     showrecent: function (req, res) {
-        Product.find({}).sort({created_at: -1}).limit(5).exec(function(err, recent_products){
+        SavingGoal.find({}).sort({created_at: -1}).limit(5).exec(function(err, recent_savinggoals){
             if(err) {
                 console.log('Error: Could not retrieve data');
             }
             else {
-                res.json(recent_products);
+                res.json(recent_savinggoals);
             }
         });
     },
 
     findbyid: function (req, res) {
-        Product.findOne({_id: req.params.id}, function (err, product){
+        SavingGoal.findOne({_id: req.params.id}, function (err, savinggoal){
             if (err) {
-                console.log("Error: could not retrieve product");
+                console.log("Error: could not retrieve saving goal");
             }
             else {
-                res.json(product);
+                res.json(savinggoal);
             }
         })
 

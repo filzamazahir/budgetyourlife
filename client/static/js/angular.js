@@ -1,5 +1,5 @@
 //Declare Module
-var budgeting_app = angular.module('budgeting_app', ['ngRoute', 'ngMessages', 'angularMoment']);
+var budgeting_app = angular.module('budgeting_app', ['ngRoute', 'ngMessages', 'angularMoment', 'ng-currency']);
 
 //Declare Routes
 budgeting_app.config(function ($routeProvider) {  
@@ -29,6 +29,11 @@ budgeting_app.config(function ($routeProvider) {
     // })
     .when('/one', {
       template: '<h1>This is page one!</h1>',
+      access: {restricted: true}
+    })
+    .when('/monthlyexpenses', {
+      templateUrl: 'partials/addmonthlyexpense.html',
+            controller: 'AddExpensesController',
       access: {restricted: true}
     })
     .when('/two', {

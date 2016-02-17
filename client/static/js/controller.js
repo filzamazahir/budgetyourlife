@@ -51,6 +51,17 @@ budgeting_app.controller('ProductsController', function($scope, ProductFactory){
 
 });
 
+// Add Expenses Controller 
+budgeting_app.controller('AddExpensesController', function($scope){
+
+
+});
+
+// Home Controller
+budgeting_app.controller('HomeController', function($scope){
+
+
+});
 
 //Orders Controller
 budgeting_app.controller('OrdersController', function($scope, OrderFactory, ProductFactory, CustomerFactory){
